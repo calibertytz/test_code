@@ -9,7 +9,7 @@ def one_hot_transform(df):
     df_ = df.copy(deep=True)
     cols = list(df_.columns)
     discrete_cols = [x for x in cols if x[0] == 'd']
-    one_hot_encoder.fit(df=df_, y='label', targets=discrete_cols, configurations=('one_hot', None))
+    one_hot_encoder.fit(df=df_, y='label', targets=discrete_cols, configurations=('one-hot', None))
     transformed_df = one_hot_encoder.transform(df_)
     return transformed_df.drop(columns=discrete_cols)
 
