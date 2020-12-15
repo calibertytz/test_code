@@ -2,7 +2,9 @@
 The rep is for testing code.
 
 ## usage
-`python data_prepare.py` 
+`python data_prepare.py 'goss'`
+
+or `'gbdt'`, `'dart'` 
 
 to get data prepared firstly.
 then
