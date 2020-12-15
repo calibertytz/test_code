@@ -8,6 +8,7 @@ import hyperopt.pyll
 from hyperopt import fmin, tpe, hp
 import copy
 import numpy as np
+from tqdm import tqdm
 
 # load data
 train_path = '../toy_data/train_onehot.csv'
@@ -58,7 +59,7 @@ kfold = KFold(n_splits=5)
 
 # num_leaves
 print('find num leaves \n')
-for i in range(12, 64+1):
+for i in tqdm(range(12, 64+1)):
     param = common_params.copy()
     common_params['num_leaves'] = i
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
@@ -66,7 +67,7 @@ for i in range(12, 64+1):
 
 # learning_rate
 print('find learning_rate \n')
-for i in range(1, 11):
+for i in tqdm(range(1, 11)):
     param = common_params.copy()
     common_params['learning_rate'] = i/10
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
@@ -74,7 +75,7 @@ for i in range(1, 11):
 
 # feature_fraction
 print('find feature_fraction \n')
-for i in np.linspace(0.5, 1, 10):
+for i in tqdm(np.linspace(0.5, 1, 10)):
     param = common_params.copy()
     common_params['feature_fraction'] = i
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
@@ -82,7 +83,7 @@ for i in np.linspace(0.5, 1, 10):
 
 # bagging_fraction
 print('find bagging_fraction \n')
-for i in np.linspace(0.5, 1, 10):
+for i in tqdm(np.linspace(0.5, 1, 10)):
     param = common_params.copy()
     common_params['bagging_fraction'] = i
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
@@ -90,7 +91,7 @@ for i in np.linspace(0.5, 1, 10):
 
 # boosting
 print('find boosting \n')
-for x in ['gbdt', 'dart', 'goss']:
+for x in tqdm(['gbdt', 'dart', 'goss']):
     param = common_params.copy()
     common_params['boosting'] = x
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
