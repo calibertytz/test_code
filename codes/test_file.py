@@ -9,6 +9,12 @@ from hyperopt import fmin, tpe, hp
 import copy
 import numpy as np
 from tqdm import tqdm
+import sys
+import os
+
+output_path = 'param_range'
+if not os.path.exists(output_path):
+    os.mkdir(output_path)
 
 # load data
 train_path = '../toy_data/train_onehot.csv'
@@ -50,60 +56,73 @@ class LGBOpt:
 
     @staticmethod
     def get_common_params():
-        return {'num_thread': 4, 'num_leaves': 12, 'metric': 'binary', 'objective': 'binary',
+        return {'num_thread': 8, 'num_leaves': 12, 'metric': 'binary', 'objective': 'binary',
                 'num_round': 1000, 'learning_rate': 0.01, 'feature_fraction': 0.8, 'bagging_fraction': 0.8}
 
-common_params = LGBOpt.get_common_params()
+
 fitter = LGBFitter()
 kfold = KFold(n_splits=5)
 
+boosting_mode = sys.argv[1] # 'gbdt', 'dart', 'goss'
+common_params = LGBOpt.get_common_params()
+common_params['boosting'] = boosting_mode
+
 # num_round
 print('find num_round \n')
+res_num_round = {}
 for i in tqdm(np.arange(1000, 2000, 100)):
     param = common_params.copy()
     common_params['num_round'] = i
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
+    res_num_round[i] = res
     print(f'num_round:{i}, acc: {res}')
+pd.DataFrame(res_num_round).to_csv(f'param_range/num_round_{boosting_mode}.csv')
 
 # num_leaves
 print('find num leaves \n')
+res_num_leaves = {}
 for i in tqdm(range(12, 64+1)):
     param = common_params.copy()
     common_params['num_leaves'] = i
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
     print(f'num leaves:{i}, acc: {res}')
+    res_num_leaves[i] = res
+pd.DataFrame(res_num_leaves).to_csv(f'param_range/num_leaves_{boosting_mode}.csv')
 
 # learning_rate
 print('find learning_rate \n')
+res_learning_rate = {}
 for i in tqdm(range(1, 11)):
     param = common_params.copy()
     common_params['learning_rate'] = i/10
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
+    res_learning_rate[i] = res
     print(f'learning_rate:{i/10}, acc: {res}')
+pd.DataFrame(res_learning_rate).to_csv(f'param_range/learning_rate_{boosting_mode}.csv')
+
 
 # feature_fraction
 print('find feature_fraction \n')
+res_feature_fraction = {}
 for i in tqdm(np.linspace(0.5, 1, 10)):
     param = common_params.copy()
     common_params['feature_fraction'] = i
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
+    res_feature_fraction[i] = res
     print(f'feature_fraction:{i}, acc: {res}')
+pd.DataFrame(res_num_round).to_csv(f'param_range/num_round_{boosting_mode}.csv')
+
 
 # bagging_fraction
 print('find bagging_fraction \n')
+res_bagging_fraction = {}
 for i in tqdm(np.linspace(0.5, 1, 10)):
     param = common_params.copy()
     common_params['bagging_fraction'] = i
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
+    res_bagging_fraction[i] = res
     print(f'bagging_fraction:{i}, acc: {res}')
-
-# boosting
-print('find boosting \n')
-for x in tqdm(['gbdt', 'dart', 'goss']):
-    param = common_params.copy()
-    common_params['boosting'] = x
-    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
-    print(f'boosting:{x}, acc: {res}')
+pd.DataFrame(res_num_round).to_csv(f'param_range/num_round_{boosting_mode}.csv')
 
 '''
 then use these range to search.
