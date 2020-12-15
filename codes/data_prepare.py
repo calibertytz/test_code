@@ -1,7 +1,6 @@
 from open_competition.tabular.encoder import CategoryEncoder
 import pandas as pd
 
-
 def one_hot_transform(df):
     one_hot_encoder = CategoryEncoder()
     df_ = df.copy(deep=True)
