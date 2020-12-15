@@ -14,8 +14,8 @@ def one_hot_transform(df):
     return transformed_df.drop(columns=discrete_cols)
 
 # read data
-train_path = '../toydata/train_n.csv'
-test_path = '../toydata/test_n.csv'
+train_path = '../toy_data/train_n.csv'
+test_path = '../toy_data/test_n.csv'
 df_test = pd.read_csv(test_path)
 df_train = pd.read_csv(train_path)
 
