@@ -26,7 +26,7 @@ df_test = df_test.drop(columns=['company_id', 'obs_date'])
 df_train = one_hot_transform(df_train)
 df_test = one_hot_transform(df_test)
 
-lgb_fitter = LGBFitter()
+lgb_fitter = LGBFitter(max_eval=5)
 
 
 # test
@@ -41,7 +41,11 @@ params = {'num_thread': 4,
           'boosting': 'dart'}
 
 if __name__ == '__main__':
-    kfold = KFold(n_splits=2)
+    print('searching! \n')
+    lgb_fitter.search(df_train, df_test)
+    print(lgb_fitter.opt_params)
 
-    #lgb_fitter.search(df_train, df_test)
+    print('kfold searching! \n')
+    kfold = KFold(n_splits=2)
     lgb_fitter.search_k_fold(kfold, df_train)
+    print(lgb_fitter.opt_params)
