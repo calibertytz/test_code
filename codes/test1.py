@@ -31,4 +31,7 @@ lgb_fitter = LGBFitter()
 # test
 params = {'num_thread': 4, 'num_leaves': 12, 'metric': 'binary', 'objective': 'binary',
                 'num_round': 100, 'learning_rate': 0.01, 'feature_fraction': 0.8, 'bagging_fraction': 0.8}
-print(lgb_fitter.train(df_train, df_test, params))
+
+lgb_fitter.train(df_train, df_test, params)
+
+lgb_fitter.search(df_train, df_test)
