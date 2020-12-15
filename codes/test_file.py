@@ -70,7 +70,7 @@ common_params['boosting'] = boosting_mode
 # num_round
 print('find num_round \n')
 res_num_round = {}
-for i in tqdm(np.arange(1000, 2000, 100)):
+for i in tqdm(np.arange(1500, 3000, 100)):
     param = common_params.copy()
     common_params['num_round'] = i
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
