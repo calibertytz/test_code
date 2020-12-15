@@ -3,3 +3,5 @@ xgboost
 lightgbm
 hyperopt
 torch
+category_encoders
+thermoencoder
