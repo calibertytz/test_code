@@ -26,7 +26,7 @@ df_test = df_test.drop(columns=['company_id', 'obs_date'])
 df_train = one_hot_transform(df_train)
 df_test = one_hot_transform(df_test)
 
-lgb_fitter = LGBFitter(max_eval=5)
+lgb_fitter = LGBFitter(max_eval=1)
 
 
 # test
