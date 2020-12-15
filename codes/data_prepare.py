@@ -1,9 +1,6 @@
-import open_competition as op
-from open_competition.tabular.model_fitter import *
 from open_competition.tabular.encoder import CategoryEncoder
 import pandas as pd
-from sklearn.model_selection import KFold
-kfold = KFold(n_splits=5)
+
 
 def one_hot_transform(df):
     one_hot_encoder = CategoryEncoder()
@@ -26,26 +23,5 @@ df_test = df_test.drop(columns=['company_id', 'obs_date'])
 df_train = one_hot_transform(df_train)
 df_test = one_hot_transform(df_test)
 
-lgb_fitter = LGBFitter(max_eval=1)
-
-
-# test
-params = {'num_thread': 4,
-          'num_leaves': 12,
-          'metric': 'binary',
-          'objective': 'binary',
-          'num_round': 100,
-          'learning_rate': 0.01,
-          'feature_fraction': 0.8,
-          'bagging_fraction': 0.8,
-          'boosting': 'dart'}
-
-if __name__ == '__main__':
-    print('searching! \n')
-    lgb_fitter.search(df_train, df_test)
-    print(lgb_fitter.opt_params)
-
-    print('kfold searching! \n')
-    kfold = KFold(n_splits=2)
-    lgb_fitter.search_k_fold(kfold, df_train)
-    print(lgb_fitter.opt_params)
+df_train.to_csv('../toy_data/train_onehot.csv', index=False)
+df_test.to_csv('../toy_data/test_onehot.csv', index=False)
