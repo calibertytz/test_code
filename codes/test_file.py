@@ -61,7 +61,7 @@ print('find num leaves \n')
 for i in range(12, 64+1):
     param = common_params
     common_params['num_leaves'] = i
-    _, _, res, _ = fitter.train(df_train, df_test, params=param)
+    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
     print(f'num leaves:{i}, acc: {res}')
 
 # learning_rate
@@ -69,7 +69,7 @@ print('find learning_rate \n')
 for i in range(1, 11):
     param = common_params
     common_params['learning_rate'] = i/10
-    _, _, res, _ = fitter.train(df_train, df_test, params=param)
+    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
     print(f'learning_rate:{i/10}, acc: {res}')
 
 # feature_fraction
@@ -77,7 +77,7 @@ print('find feature_fraction \n')
 for i in np.linspace(0.5, 1, 10):
     param = common_params
     common_params['feature_fraction'] = i
-    _, _, res, _ = fitter.train(df_train, df_test, params=param)
+    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
     print(f'feature_fraction:{i}, acc: {res}')
 
 # bagging_fraction
@@ -85,7 +85,7 @@ print('find bagging_fraction \n')
 for i in np.linspace(0.5, 1, 10):
     param = common_params
     common_params['bagging_fraction'] = i
-    _, _, res, _ = fitter.train(df_train, df_test, params=param)
+    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
     print(f'bagging_fraction:{i}, acc: {res}')
 
 # boosting
@@ -93,6 +93,6 @@ print('find boosting \n')
 for x in ['gbdt', 'dart', 'goss']:
     param = common_params
     common_params['boosting'] = x
-    _, _, res, _ = fitter.train(df_train, df_test, params=param)
+    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
     print(f'boosting:{x}, acc: {res}')
 
