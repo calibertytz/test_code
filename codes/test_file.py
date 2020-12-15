@@ -57,6 +57,14 @@ common_params = LGBOpt.get_common_params()
 fitter = LGBFitter()
 kfold = KFold(n_splits=5)
 
+# num_round
+print('find num_round \n')
+for i in tqdm(np.arange(1000, 2000, 100)):
+    param = common_params.copy()
+    common_params['num_round'] = i
+    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
+    print(f'num_round:{i}, acc: {res}')
+
 # num_leaves
 print('find num leaves \n')
 for i in tqdm(range(12, 64+1)):
