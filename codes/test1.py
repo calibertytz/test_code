@@ -22,6 +22,8 @@ df_train = pd.read_csv(train_path)
 df_train = df_train.drop(columns=['company_id', 'obs_data'])
 df_test = df_test.drop(columns=['company_id', 'obs_data'])
 
+df_train = one_hot_transform(df_train)
+df_test = one_hot_transform(df_test)
 
 lgb_fitter = LGBFitter()
 
