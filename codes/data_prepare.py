@@ -1,5 +1,8 @@
 from open_competition.tabular.encoder import CategoryEncoder
 import pandas as pd
+import warnings
+
+warnings.filterwarnings('ignore')
 
 def one_hot_transform(df):
     one_hot_encoder = CategoryEncoder()

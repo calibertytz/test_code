@@ -5,9 +5,7 @@ The rep is for testing code.
 
 1. `git clone` this rep
 
-2. `pip install requirements.txt`
-
-3. `pip install git+https://github.com/rwbfd/OpenCompetitionV2.git@master`
+2. `pip install git+https://github.com/rwbfd/OpenCompetitionV2.git@master`
 
 
 
@@ -19,8 +17,8 @@ to get data prepared firstly.
 
 then for every VM instance,
 
- `python data_prepare.py 'gdbt'`
- 
-`python data_prepare.py 'goss'`
+`nohup python test_file.py 'dart' > out.log 2>&1 &`
 
-`python data_prepare.py 'dart'`
+`nohup python test_file.py 'goss' > out.log 2>&1 &`
+
+`nohup python test_file.py 'gbdt' > out.log 2>&1 &`
