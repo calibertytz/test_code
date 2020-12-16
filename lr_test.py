@@ -20,7 +20,6 @@ def target_mean(df_train, df_test):
     cols = list(df_train.columns)
     discrete_cols = [x for x in cols if x[0] == 'd']
     continuous_cols = [x for x in cols if x[0] == 'c']
-    print(discrete_cols, continuous_cols)
     encoder.fit(df=df_train, y='label', targets=discrete_cols, configurations=[('target', {'smoothing': 0.5})])
 
     transformed_df_train = encoder.transform(df_train, y='label')
@@ -28,8 +27,8 @@ def target_mean(df_train, df_test):
 
     df_1, df_2 = transformed_df_train.drop(columns = discrete_cols), transformed_df_test.drop(columns=discrete_cols)
     for col in continuous_cols:
-        df_1[col].fillna(df_1.mean())
-        df_2[col].fillna(df_2.mean())
+        df_1[col].fillna(df_1[col].mean())
+        df_2[col].fillna(df_2[col].mean())
     return df_1, df_2
 
 # load data
