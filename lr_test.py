@@ -19,14 +19,18 @@ def target_mean(df_train, df_test):
     encoder = CategoryEncoder()
     cols = list(df_train.columns)
     discrete_cols = [x for x in cols if x.split('_')[0] == 'd']
-
+    continuous_cols = [x for x in cols if x.split('_')[0] == 'c']
+    print(discrete_cols, continuous_cols)
     encoder.fit(df=df_train, y='label', targets=discrete_cols, configurations=[('target', {'smoothing': 0.5})])
 
     transformed_df_train = encoder.transform(df_train, y='label')
     transformed_df_test = encoder.transform(df_test)
 
     df_1, df_2 = transformed_df_train.drop(columns = discrete_cols), transformed_df_test.drop(columns=discrete_cols)
-    return df_1.fillna(method='bfill'), df_2.fillna(method='bfill')
+    for col in continuous_cols:
+        df_1[col].fillna(df_1.mean())
+        df_2[col].fillna(df_2.mean())
+    return df_1, df_2
 
 # load data
 train_path = 'toy_data/train_n.csv'
