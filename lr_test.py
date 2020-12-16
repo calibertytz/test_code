@@ -42,7 +42,6 @@ df_train = pd.read_csv(train_path)
 
 df_train, df_test = target_mean(df_train, df_test)
 
-print(df_train)
 
 fiter = LRFitter()
 kfold = KFold(n_splits=5)

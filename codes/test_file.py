@@ -53,98 +53,123 @@ for goss 0.2 - 0.8 fix as 0.7
 
 for bagging_fraction
 
+for max_depth,
+gbdt is 5
 
-
-
+gbdt 2000, 5e-2, 32, 5, 0.6, 
+dart 2000 7e-2, 32, 
+goss 2000 5e-2, 32, 5, 0.7
 
 '''
 
-
-@dataclass
-class LGBOpt:
-    num_threads: any = hp.choice('num_threads', [cpu_count])
-    num_leaves: any = hp.choice('num_leaves', [64])
-    metric: any = hp.choice('metric', ['binary_error'])
-    num_round: any = hp.choice('num_rounds', [1000])
-    objective: any = hp.choice('objective', ['binary'])
-    learning_rate: any = hp.uniform('learning_rate', 0.01, 0.1)
-    feature_fraction: any = hp.uniform('feature_fraction', 0.5, 1.0)
-    bagging_fraction: any = hp.uniform('bagging_fraction', 0.8, 1.0)
-    boosting: any = hp.choice('boosting', ['gbdt', 'dart', 'goss'])
-    extra_trees: any = hp.choice('extra_tress', [False, True])
-    drop_rate: any = hp.uniform('drop_rate', 0, 0.2)
-    uniform_drop: any = hp.choice('uniform_drop', [True, False])
-    lambda_l1: any = hp.uniform('lambda_l1', 0, 10)  # TODO: Check range
-    lambda_l2: any = hp.uniform('lambda_l2', 0, 10)  # TODO: Check range
-    min_gain_to_split: any = hp.uniform('min_gain_to_split', 0, 1)  # TODO: Check range
-    min_data_in_bin = hp.choice('min_data_in_bin', [3, 5, 10, 15, 20, 50])
-
-    @staticmethod
-    def get_common_params():
-        return {'num_thread': 8, 'num_leaves': 12, 'metric': 'binary_error', 'objective': 'binary',
-                'num_round': 1000, 'learning_rate': 0.01, 'feature_fraction': 0.8, 'bagging_fraction': 0.8}
-
-
 num_leaves = 32
-num_round =2000
+num_round = 2000
 learning_rate = 5e-2
-boosting_mode = sys.argv[1] # 'gbdt', 'dart', 'goss'
 
-common_params = {'num_thread': 8, 'num_leaves': num_leaves, 'metric': 'binary_error', 'objective': 'binary',
-                'num_round': num_round, 'learning_rate': learning_rate, 'feature_fraction': 0.6, 'bagging_fraction': 0.8}
+boosting_mode = sys.argv[1]  # 'gbdt', 'dart', 'goss'
+extra_tree = sys.argv[2]  # 0 denote False, 1 denote True
+
+common_params = {'num_thread': 32,
+                 'num_leaves': num_leaves,
+                 'metric': 'binary_error',
+                 'objective': 'binary',
+                 'num_round': num_round,
+                 'learning_rate': learning_rate,
+                 'feature_fraction': 0.6,
+                 'bagging_fraction': 0.8}
 
 common_params['boosting'] = boosting_mode
 
-'''
-for num_round in tqdm([1000, 1500, 2000]):
+if extra_tree:
+    common_params['extra_trees'] = True
+else:
+    pass
+
+res_list = {}
+for lr in [3e-2, 5e-2, 7e-2, 9e-2]:
     params = common_params.copy()
-    params['num_round'] = num_round
-    print(params)
+    params['learning_rate'] = lr
     kfold = KFold(n_splits=5)
     fitter = LGBFitter()
-    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params)
-    print(f'{num_round}, {res}')
-'''
+    _, _, res, _ = fitter.train(kfold, df_train, df_test, params)
+    res_list[lr] = res
+    print(f'lr: {lr}, res: {res}')
+pd.DataFrame(res_list).to_csv(f'param_range/res_{boosting_mode}_{extra_tree}_lr.csv', index=False)
 
-'''
-for learning_rate in tqdm([2e-2, 3e-2, 4e-2]):
+res_list = {}
+for max_depth in [3, 5, 7]:
     params = common_params.copy()
-    params['learning_rate'] = learning_rate
-    print(params)
+    params['max_depth'] = max_depth
     kfold = KFold(n_splits=5)
     fitter = LGBFitter()
-    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params)
-    print(f'{learning_rate}, {res}')
-'''
-
-'''
-for num_leaves in tqdm([16, 32, 48, 64, 72, 96]):
-    params = common_params.copy()
-    params['num_leaves'] = num_leaves
-    print(params)
-    kfold = KFold(n_splits=5)
-    fitter = LGBFitter()
-    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params)
-    print(f'{num_leaves}, {res}')
-'''
+    _, _, res, _ = fitter.train(kfold, df_train, df_test, params)
+    res_list[max_depth] = res
+    print(f'lr: {max_depth}, res: {res}')
+pd.DataFrame(res_list).to_csv(f'param_range/res_{boosting_mode}_{extra_tree}_max_depth.csv', index=False)
 
 
-for feature_fraction in tqdm([0.2, 0.4, 0.6, 0.8]):
-    params = common_params.copy()
-    params['feature_fraction'] = feature_fraction
-    print(params)
-    kfold = KFold(n_splits=5)
-    fitter = LGBFitter()
-    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params)
-    print(f'{feature_fraction}, {res}')
-
-
-'''
+res_list = {}
 for num_leaves in [16, 32, 64, 96]:
     params = common_params.copy()
-    params['']
-    print(params)
+    params['num_leaves'] = num_leaves
+    kfold = KFold(n_splits=5)
     fitter = LGBFitter()
+    _, _, res, _ = fitter.train(kfold, df_train, df_test, params)
+    res_list[num_leaves] = res
+    print(f'lr: {num_leaves}, res: {res}')
+pd.DataFrame(res_list).to_csv(f'param_range/res_{boosting_mode}_{extra_tree}_num_leaves.csv', index=False)
 
-fiter_option = LGBOpt()
-'''
+res_list = {}
+for p in [0.2, 0.4, 0.6, 0.8]:
+    params = common_params.copy()
+    params['feature_fraction'] = p
+    kfold = KFold(n_splits=5)
+    fitter = LGBFitter()
+    _, _, res, _ = fitter.train(kfold, df_train, df_test, params)
+    res_list[p] = res
+    print(f'lr: {p}, res: {res}')
+pd.DataFrame(res_list).to_csv(f'param_range/res_{boosting_mode}_{extra_tree}_feature_fraction.csv', index=False)
+
+res_list = {}
+for p in [0.2, 0.4, 0.6, 0.8]:
+    params = common_params.copy()
+    params['bagging_fraction'] = p
+    kfold = KFold(n_splits=5)
+    fitter = LGBFitter()
+    _, _, res, _ = fitter.train(kfold, df_train, df_test, params)
+    res_list[p] = res
+    print(f'lr: {p}, res: {res}')
+pd.DataFrame(res_list).to_csv(f'param_range/res_{boosting_mode}_{extra_tree}_bagging_fraction.csv', index=False)
+
+res_list = {}
+for p in [0.2, 0.4, 0.6, 0.8]:
+    params = common_params.copy()
+    params['bagging_fraction'] = p
+    kfold = KFold(n_splits=5)
+    fitter = LGBFitter()
+    _, _, res, _ = fitter.train(kfold, df_train, df_test, params)
+    res_list[p] = res
+    print(f'lr: {p}, res: {res}')
+pd.DataFrame(res_list).to_csv(f'param_range/res_{boosting_mode}_{extra_tree}_bagging_fraction.csv', index=False)
+
+res_list = {}
+for p in [2, 4, 6, 8]:
+    params = common_params.copy()
+    params['lambda_l1'] = p
+    kfold = KFold(n_splits=5)
+    fitter = LGBFitter()
+    _, _, res, _ = fitter.train(kfold, df_train, df_test, params)
+    res_list[p] = res
+    print(f'lr: {p}, res: {res}')
+pd.DataFrame(res_list).to_csv(f'param_range/res_{boosting_mode}_{extra_tree}_lambda_l1.csv', index=False)
+
+res_list = {}
+for p in [2, 4, 6, 8]:
+    params = common_params.copy()
+    params['lambda_l2'] = p
+    kfold = KFold(n_splits=5)
+    fitter = LGBFitter()
+    _, _, res, _ = fitter.train(kfold, df_train, df_test, params)
+    res_list[p] = res
+    print(f'lr: {p}, res: {res}')
+pd.DataFrame(res_list).to_csv(f'param_range/res_{boosting_mode}_{extra_tree}_lambda_l2.csv', index=False)
