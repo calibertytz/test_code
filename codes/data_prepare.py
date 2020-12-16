@@ -27,3 +27,4 @@ df_test = one_hot_transform(df_test)
 
 df_train.to_csv('../toy_data/train_onehot.csv', index=False)
 df_test.to_csv('../toy_data/test_onehot.csv', index=False)
+
