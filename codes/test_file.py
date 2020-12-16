@@ -22,7 +22,7 @@ test_path = '../toy_data/test_onehot.csv'
 df_test = pd.read_csv(test_path)
 df_train = pd.read_csv(train_path)
 
-cpu_count = 4
+cpu_count = 8
 
 '''
 Firstly, we test num_round,
@@ -32,7 +32,16 @@ for goss, suitable num_round is 2000
 
 we fix num_round as 2000
 
-then for learning rate,
+then for learning rate, we fix learning_rate as 5e-2.
+
+then for num_leaves, 
+
+for gbdt, max is 96 fix as 32
+
+for dart, 
+
+for goss, if num_leaves is large, the needed num_round is small. max is 64 fix as 32
+
 
 
 '''
@@ -63,7 +72,7 @@ class LGBOpt:
                 'num_round': 1000, 'learning_rate': 0.01, 'feature_fraction': 0.8, 'bagging_fraction': 0.8}
 
 
-num_leaves = 12
+num_leaves = 32
 num_round =2000
 learning_rate = 5e-2
 boosting_mode = sys.argv[1] # 'gbdt', 'dart', 'goss'
@@ -95,6 +104,7 @@ for learning_rate in tqdm([2e-2, 3e-2, 4e-2]):
     print(f'{learning_rate}, {res}')
 '''
 
+'''
 for num_leaves in tqdm([16, 32, 48, 64, 72, 96]):
     params = common_params.copy()
     params['num_leaves'] = num_leaves
@@ -103,6 +113,17 @@ for num_leaves in tqdm([16, 32, 48, 64, 72, 96]):
     fitter = LGBFitter()
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params)
     print(f'{num_leaves}, {res}')
+'''
+
+
+for feature_fraction in tqdm([0.2, 0.4, 0.6, 0.8]):
+    params = common_params.copy()
+    params['feature_fraction'] = feature_fraction
+    print(params)
+    kfold = KFold(n_splits=5)
+    fitter = LGBFitter()
+    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params)
+    print(f'{feature_fraction}, {res}')
 
 
 '''
