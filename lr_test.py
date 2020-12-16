@@ -2,6 +2,8 @@ import open_competition as op
 from open_competition.tabular.model_fitter import LRFitter
 from open_competition.tabular.encoder import CategoryEncoder
 import pandas as pd
+from ind_cols import get_ind_col
+
 from dataclasses import dataclass, asdict
 from sklearn.model_selection import KFold
 from dataclasses import dataclass, asdict
@@ -19,7 +21,6 @@ def target_mean(df_train, df_test):
     encoder = CategoryEncoder()
     cols = list(df_train.columns)
     discrete_cols = [x for x in cols if x[0] == 'd']
-    continuous_cols = [x for x in cols if x[0] == 'c']
     encoder.fit(df=df_train, y='label', targets=discrete_cols, configurations=[('target', {'smoothing': 0.5})])
 
     transformed_df_train = encoder.transform(df_train, y='label')
@@ -30,7 +31,8 @@ def target_mean(df_train, df_test):
     for col in cols_:
         df_1[col] = df_1[col].fillna(df_1[col].mean())
         df_2[col] = df_2[col].fillna(df_2[col].mean())
-    return df_1, df_2
+    ind_cols = get_ind_col(df_1)
+    return df_1[ind_cols], df_2[ind_cols]
 
 # load data
 train_path = 'toy_data/train_n.csv'
