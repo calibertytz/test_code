@@ -27,8 +27,8 @@ def target_mean(df_train, df_test):
 
     df_1, df_2 = transformed_df_train.drop(columns = discrete_cols), transformed_df_test.drop(columns=discrete_cols)
     for col in continuous_cols:
-        df_1[col].fillna(df_1[col].mean())
-        df_2[col].fillna(df_2[col].mean())
+        df_1[col] = df_1[col].fillna(df_1[col].mean())
+        df_2[col] = df_2[col].fillna(df_2[col].mean())
     return df_1, df_2
 
 # load data
