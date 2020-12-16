@@ -18,8 +18,8 @@ def target_mean(df_train, df_test):
 
     encoder = CategoryEncoder()
     cols = list(df_train.columns)
-    discrete_cols = [x for x in cols if x.split('_')[0] == 'd']
-    continuous_cols = [x for x in cols if x.split('_')[0] == 'c']
+    discrete_cols = [x for x in cols if x[0] == 'd']
+    continuous_cols = [x for x in cols if x[0] == 'c']
     print(discrete_cols, continuous_cols)
     encoder.fit(df=df_train, y='label', targets=discrete_cols, configurations=[('target', {'smoothing': 0.5})])
 
