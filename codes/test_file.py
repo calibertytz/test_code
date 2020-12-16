@@ -34,6 +34,8 @@ we fix num_round as 2000
 
 then for learning rate, we fix learning_rate as 5e-2.
 
+for dart, learning_rate should be 7e-2
+
 then for num_leaves, 
 
 for gbdt, max is 96 fix as 32
@@ -41,6 +43,18 @@ for gbdt, max is 96 fix as 32
 for dart, 
 
 for goss, if num_leaves is large, the needed num_round is small. max is 64 fix as 32
+
+for feature_fraction
+
+for gbdt, 0.2-1.0
+
+for goss 0.2 - 
+
+fix as 0.6
+
+for bagging_fraction
+
+
 
 
 
@@ -78,7 +92,7 @@ learning_rate = 5e-2
 boosting_mode = sys.argv[1] # 'gbdt', 'dart', 'goss'
 
 common_params = {'num_thread': 8, 'num_leaves': num_leaves, 'metric': 'binary_error', 'objective': 'binary',
-                'num_round': num_round, 'learning_rate': learning_rate, 'feature_fraction': 0.8, 'bagging_fraction': 0.8}
+                'num_round': num_round, 'learning_rate': learning_rate, 'feature_fraction': 0.6, 'bagging_fraction': 0.8}
 
 common_params['boosting'] = boosting_mode
 

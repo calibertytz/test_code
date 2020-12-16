@@ -22,16 +22,18 @@ def target_mean(df_train, df_test):
     encoder.fit(df=df_train, y='label', targets=discrete_cols, configurations=[('target', {'smoothing': 0.5})])
     transformed_df_train = encoder.transform(df_train, y='label')
     transformed_df_test = encoder.transform(df_test)
-    return transformed_df_train.drop(columns = discrete_cols), transformed_df_test.drop(columns=discrete_cols)
-
+    df_1, df_2 = transformed_df_train.drop(columns = discrete_cols), transformed_df_test.drop(columns=discrete_cols)
+    df_1, df_2
 
 # load data
-train_path = '../toy_data/train_n.csv'
-test_path = '../toy_data/test_n.csv'
+train_path = 'toy_data/train_n.csv'
+test_path = 'toy_data/test_n.csv'
 df_test = pd.read_csv(test_path)
 df_train = pd.read_csv(train_path)
 
 df_train, df_test = target_mean(df_train, df_test)
+
+print(df_train)
 
 fiter = LRFitter()
 kfold = KFold(n_splits=5)
