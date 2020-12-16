@@ -3,7 +3,7 @@ The rep is for testing code.
 
 ## usage
 
-1. `git clone` this rep
+1. `git clone https://github.com/calibertytz/test_code.git` 
 
 2. `pip install git+https://github.com/rwbfd/OpenCompetitionV2.git@master`
 

@@ -85,6 +85,19 @@ if extra_tree:
 else:
     pass
 
+if boosting_mode == 'rf':
+    common_params = {'num_thread': 32,
+                     'num_leaves': num_leaves,
+                     'metric': 'binary_error',
+                     'objective': 'binary',
+                     'num_round': num_round,
+                     'learning_rate': learning_rate,
+                     'feature_fraction': 0.6,
+                     'bagging_fraction': 0.8,
+                     'bagging_freq': 0.1,
+                     }
+
+
 res_list = {}
 for lr in tqdm([3e-2, 5e-2, 7e-2, 9e-2]):
     params = common_params.copy()
