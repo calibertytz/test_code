@@ -23,7 +23,7 @@ def target_mean(df_train, df_test):
     transformed_df_train = encoder.transform(df_train, y='label')
     transformed_df_test = encoder.transform(df_test)
     df_1, df_2 = transformed_df_train.drop(columns = discrete_cols), transformed_df_test.drop(columns=discrete_cols)
-    df_1, df_2
+    return df_1, df_2
 
 # load data
 train_path = 'toy_data/train_n.csv'

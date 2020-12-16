@@ -48,7 +48,7 @@ for feature_fraction
 
 for gbdt, 0.2-1.0
 
-for goss 0.2 - 
+for goss 0.2 - 0.8
 
 fix as 0.6
 
