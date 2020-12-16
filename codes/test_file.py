@@ -25,13 +25,10 @@ df_train = pd.read_csv(train_path)
 cpu_count = 4
 
 '''
-need to test range for the following param:
-1. num_leaves
-2. num_rounds
-3. learning_rate
-4. boosting
-5. 
-
+Firstly, we test num_round, then we will adjust learning_rate.
+for gbdt, suitable num_round is 2000.
+for dart, suitable num_round is 
+for goss, suitable num_round is 
 '''
 
 
@@ -61,8 +58,8 @@ class LGBOpt:
 
 
 num_leaves = 12
-num_round =1000
-learning_rate = 1e-2
+num_round =2000
+learning_rate = 2e-2
 boosting_mode = sys.argv[1] # 'gbdt', 'dart', 'goss'
 
 common_params = {'num_thread': 8, 'num_leaves': num_leaves, 'metric': 'binary_error', 'objective': 'binary',
@@ -70,7 +67,8 @@ common_params = {'num_thread': 8, 'num_leaves': num_leaves, 'metric': 'binary_er
 
 common_params['boosting'] = boosting_mode
 
-for num_round in [1000, 1500, 2000]:
+'''
+for num_round in tqdm([1000, 1500, 2000]):
     params = common_params.copy()
     params['num_round'] = num_round
     print(params)
@@ -78,6 +76,16 @@ for num_round in [1000, 1500, 2000]:
     fitter = LGBFitter()
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params)
     print(f'{num_round}, {res}')
+'''
+
+for learning_rate in tqdm([2e-2, 3e-2, 4e-2]):
+    params = common_params.copy()
+    params['learning_rate'] = learning_rate
+    print(params)
+    kfold = KFold(n_splits=5)
+    fitter = LGBFitter()
+    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params)
+    print(f'{learning_rate}, {res}')
 
 
 '''
