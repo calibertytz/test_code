@@ -91,7 +91,7 @@ for lr in [3e-2, 5e-2, 7e-2, 9e-2]:
     params['learning_rate'] = lr
     kfold = KFold(n_splits=5)
     fitter = LGBFitter()
-    _, _, res, _ = fitter.train(kfold, df_train, df_test, params)
+    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params)
     res_list[lr] = res
     print(f'lr: {lr}, res: {res}')
 pd.DataFrame(res_list).to_csv(f'param_range/res_{boosting_mode}_{extra_tree}_lr.csv', index=False)
@@ -102,7 +102,7 @@ for max_depth in [3, 5, 7]:
     params['max_depth'] = max_depth
     kfold = KFold(n_splits=5)
     fitter = LGBFitter()
-    _, _, res, _ = fitter.train(kfold, df_train, df_test, params)
+    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params)
     res_list[max_depth] = res
     print(f'lr: {max_depth}, res: {res}')
 pd.DataFrame(res_list).to_csv(f'param_range/res_{boosting_mode}_{extra_tree}_max_depth.csv', index=False)
@@ -114,7 +114,7 @@ for num_leaves in [16, 32, 64, 96]:
     params['num_leaves'] = num_leaves
     kfold = KFold(n_splits=5)
     fitter = LGBFitter()
-    _, _, res, _ = fitter.train(kfold, df_train, df_test, params)
+    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params)
     res_list[num_leaves] = res
     print(f'lr: {num_leaves}, res: {res}')
 pd.DataFrame(res_list).to_csv(f'param_range/res_{boosting_mode}_{extra_tree}_num_leaves.csv', index=False)
@@ -125,7 +125,7 @@ for p in [0.2, 0.4, 0.6, 0.8]:
     params['feature_fraction'] = p
     kfold = KFold(n_splits=5)
     fitter = LGBFitter()
-    _, _, res, _ = fitter.train(kfold, df_train, df_test, params)
+    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params)
     res_list[p] = res
     print(f'lr: {p}, res: {res}')
 pd.DataFrame(res_list).to_csv(f'param_range/res_{boosting_mode}_{extra_tree}_feature_fraction.csv', index=False)
@@ -136,7 +136,7 @@ for p in [0.2, 0.4, 0.6, 0.8]:
     params['bagging_fraction'] = p
     kfold = KFold(n_splits=5)
     fitter = LGBFitter()
-    _, _, res, _ = fitter.train(kfold, df_train, df_test, params)
+    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params)
     res_list[p] = res
     print(f'lr: {p}, res: {res}')
 pd.DataFrame(res_list).to_csv(f'param_range/res_{boosting_mode}_{extra_tree}_bagging_fraction.csv', index=False)
@@ -147,7 +147,7 @@ for p in [0.2, 0.4, 0.6, 0.8]:
     params['bagging_fraction'] = p
     kfold = KFold(n_splits=5)
     fitter = LGBFitter()
-    _, _, res, _ = fitter.train(kfold, df_train, df_test, params)
+    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params)
     res_list[p] = res
     print(f'lr: {p}, res: {res}')
 pd.DataFrame(res_list).to_csv(f'param_range/res_{boosting_mode}_{extra_tree}_bagging_fraction.csv', index=False)
@@ -158,7 +158,7 @@ for p in [2, 4, 6, 8]:
     params['lambda_l1'] = p
     kfold = KFold(n_splits=5)
     fitter = LGBFitter()
-    _, _, res, _ = fitter.train(kfold, df_train, df_test, params)
+    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params)
     res_list[p] = res
     print(f'lr: {p}, res: {res}')
 pd.DataFrame(res_list).to_csv(f'param_range/res_{boosting_mode}_{extra_tree}_lambda_l1.csv', index=False)
@@ -169,7 +169,7 @@ for p in [2, 4, 6, 8]:
     params['lambda_l2'] = p
     kfold = KFold(n_splits=5)
     fitter = LGBFitter()
-    _, _, res, _ = fitter.train(kfold, df_train, df_test, params)
+    _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params)
     res_list[p] = res
     print(f'lr: {p}, res: {res}')
 pd.DataFrame(res_list).to_csv(f'param_range/res_{boosting_mode}_{extra_tree}_lambda_l2.csv', index=False)
