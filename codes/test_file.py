@@ -94,7 +94,7 @@ if boosting_mode == 'rf':
                      'learning_rate': learning_rate,
                      'feature_fraction': 0.6,
                      'bagging_fraction': 0.8,
-                     'bagging_freq': 0.1,
+                     'bagging_freq': 100,
                      }
 
 
