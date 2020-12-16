@@ -46,11 +46,10 @@ for goss, if num_leaves is large, the needed num_round is small. max is 64 fix a
 
 for feature_fraction
 
-for gbdt, 0.2-1.0
+for gbdt, 0.2-1.0 fix as 0.6
 
-for goss 0.2 - 0.8
+for goss 0.2 - 0.8 fix as 0.7
 
-fix as 0.6
 
 for bagging_fraction
 
