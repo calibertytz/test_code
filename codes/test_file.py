@@ -72,7 +72,7 @@ print('find num_round \n')
 res_num_round = {}
 for i in tqdm(np.arange(1500, 3000, 100)):
     param = common_params.copy()
-    common_params['num_round'] = i
+    param['num_round'] = i
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
     res_num_round[i] = res
     print(f'num_round:{i}, acc: {res}')
@@ -83,7 +83,7 @@ print('find num leaves \n')
 res_num_leaves = {}
 for i in tqdm(range(12, 64+1)):
     param = common_params.copy()
-    common_params['num_leaves'] = i
+    param['num_leaves'] = i
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
     print(f'num leaves:{i}, acc: {res}')
     res_num_leaves[i] = res
@@ -94,7 +94,7 @@ print('find learning_rate \n')
 res_learning_rate = {}
 for i in tqdm(range(1, 11)):
     param = common_params.copy()
-    common_params['learning_rate'] = i/10
+    param['learning_rate'] = i/10
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
     res_learning_rate[i] = res
     print(f'learning_rate:{i/10}, acc: {res}')
@@ -106,7 +106,7 @@ print('find feature_fraction \n')
 res_feature_fraction = {}
 for i in tqdm(np.linspace(0.5, 1, 10)):
     param = common_params.copy()
-    common_params['feature_fraction'] = i
+    param['feature_fraction'] = i
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
     res_feature_fraction[i] = res
     print(f'feature_fraction:{i}, acc: {res}')
@@ -118,7 +118,7 @@ print('find bagging_fraction \n')
 res_bagging_fraction = {}
 for i in tqdm(np.linspace(0.5, 1, 10)):
     param = common_params.copy()
-    common_params['bagging_fraction'] = i
+    param['bagging_fraction'] = i
     _, _, res, _ = fitter.train_k_fold(kfold, df_train, df_test, params=param)
     res_bagging_fraction[i] = res
     print(f'bagging_fraction:{i}, acc: {res}')
