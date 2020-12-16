@@ -57,7 +57,7 @@ df_test.to_csv('../toy_data/test_onehot.csv', index=False)
 booster = "gbtree"
 eval_metric = 'error'
 objective = 'binary:logistic'
-cpu_count = 16
+cpu_count = 32
 
 # need_change
 num_round = 2000
