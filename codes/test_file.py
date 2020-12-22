@@ -72,7 +72,7 @@ class LGBOpt:
 
 # search_k_fold
 lgb_opt = LGBOpt()
-model_fitter = LGBFitter(label='label', opt=lgb_opt, max_eval=1)
+model_fitter = LGBFitter(label='label', opt=lgb_opt, max_eval=30)
 kfold = KFold(n_splits=5)
 model_fitter.search_k_fold(k_fold=kfold, data=df_train)
 print(model_fitter.opt_params)
