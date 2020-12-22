@@ -3,3 +3,7 @@ dart need larger lr
 {'num_thread': 64, 'num_leaves': 192, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_r
 ate': 0.01, 'feature_fraction': 0.8, 'bagging_fraction': 0.8, 'bagging_freq': None, 'boosting': 'dart'}
 0.20806
+
+{'num_thread': 64, 'num_leaves': 128, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_r
+ate': 0.07, 'feature_fraction': 0.8, 'bagging_fraction': 0.8, 'bagging_freq': None, 'boosting': 'dart'}
+0.20578000000000002

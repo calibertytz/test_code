@@ -53,11 +53,11 @@ for num_leaves in tqdm([16, 32, 64, 96, 128, 164, 192]):
 @dataclass
 class LGBOpt:
     num_threads: any = hp.choice('num_threads', [64])
-    num_leaves: any = hp.choice('num_leaves', [130, 131, 132, 133, 134, 135, 137, 138, 139, 140])
+    num_leaves: any = hp.choice('num_leaves', [133, 134, 135, 137, 138, 139])
     metric: any = hp.choice('metric', ['binary_error'])
     num_round: any = hp.choice('num_rounds', [2000])
     objective: any = hp.choice('objective', ['binary'])
-    learning_rate: any = hp.uniform('learning_rate', 0.01, 0.1)
+    learning_rate: any = hp.uniform('learning_rate', 0.01, 0.05)
     feature_fraction: any = hp.uniform('feature_fraction', 0.65, 0.75)
     bagging_fraction: any = hp.uniform('bagging_fraction', 0.75, 0.85)
     boosting: any = hp.choice('boosting', ['gbdt'])
@@ -72,7 +72,7 @@ class LGBOpt:
 
 # search_k_fold
 lgb_opt = LGBOpt()
-model_fitter = LGBFitter(label='label', opt=lgb_opt)
+model_fitter = LGBFitter(label='label', opt=lgb_opt, max_eval=1)
 kfold = KFold(n_splits=5)
 model_fitter.search_k_fold(k_fold=kfold, data=df_train)
 print(model_fitter.opt_params)
