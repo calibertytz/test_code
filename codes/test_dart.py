@@ -34,7 +34,7 @@ bagging_freq = 10
 boosting_mode = 'dart'
 
 
-for feature_fraction in tqdm([0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99]):
+for bagging_fraction in tqdm([0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]):
     common_params = {'num_thread': 64,
                      'num_leaves': num_leaves,
                      'metric': 'binary_error',
