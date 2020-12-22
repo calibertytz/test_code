@@ -31,7 +31,7 @@ bagging_fraction = 0.8
 bagging_freq = 10
 extra_trees = True
 
-for feature_fraction in tqdm([0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99]):
+for bagging_fraction in tqdm([0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99]):
     common_params = {'num_thread': 64,
                      'num_leaves': num_leaves,
                      'metric': 'binary_error',
