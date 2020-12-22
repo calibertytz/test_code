@@ -29,8 +29,6 @@ num_leaves = 80
 num_round = 2000
 learning_rate = 1e-2
 feature_fraction = 0.8
-bagging_fraction = 0.8
-bagging_freq = 10
 boosting_mode = 'goss'
 
 
@@ -42,8 +40,6 @@ for feature_fraction in tqdm([0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99]):
                      'num_round': num_round,
                      'learning_rate': learning_rate,
                      'feature_fraction': feature_fraction,
-                     'bagging_fraction': bagging_fraction,
-                     'bagging_freq': bagging_freq,
                      'boosting': boosting_mode
                      }
 
