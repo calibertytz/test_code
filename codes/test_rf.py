@@ -30,8 +30,9 @@ num_round = 2000
 learning_rate = 1e-2
 feature_fraction = 0.8
 bagging_fraction = 0.8
-bagging_freq = None
+bagging_freq = 5
 boosting_mode = 'rf'
+
 
 
 for num_leaves in tqdm([16, 32, 64, 96, 128, 164, 192]):
