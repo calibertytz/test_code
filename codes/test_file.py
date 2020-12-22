@@ -75,13 +75,16 @@ rf:
 
 num_leaves = 32
 num_round = 2000
+max_depth = 5
 learning_rate = 1e-2
 feature_fraction = 0.8
 bagging_fraction = 0.8
 bagging_freq = None
+
 for num_leaves in [16, 32, 64, 96, 128, 164, 192]:
-    common_params = {'num_thread': 32,
+    common_params = {'num_thread': 64,
                      'num_leaves': num_leaves,
+                     'max_depth': max_depth,
                      'metric': 'binary_error',
                      'objective': 'binary',
                      'num_round': num_round,
