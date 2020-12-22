@@ -30,7 +30,7 @@ num_round = 2000
 learning_rate = 1e-2
 feature_fraction = 0.8
 boosting_mode = 'goss'
-extra_tress = True
+extra_trees = True
 
 
 for num_leaves in tqdm([16, 32, 64, 80, 96, 112, 128, 164, 192]):
@@ -42,7 +42,7 @@ for num_leaves in tqdm([16, 32, 64, 80, 96, 112, 128, 164, 192]):
                      'learning_rate': learning_rate,
                      'feature_fraction': feature_fraction,
                      'boosting': boosting_mode,
-                     'extra_tress': extra_tress
+                     'extra_trees': extra_trees
                      }
 
     model_fitter = LGBFitter(label='label')
