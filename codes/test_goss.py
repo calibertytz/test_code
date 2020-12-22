@@ -26,7 +26,7 @@ df_train = pd.read_csv(train_path)
 
 num_leaves = 32
 num_round = 2000
-learning_rate = 1e-2
+learning_rate = 3e-2
 feature_fraction = 0.8
 boosting_mode = 'goss'
 extra_trees = True

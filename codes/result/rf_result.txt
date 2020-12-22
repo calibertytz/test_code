@@ -1,2 +1,17 @@
+{'num_thread': 64, 'num_leaves': 344, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_r
+ate': 0.01, 'feature_fraction': 0.8, 'bagging_fraction': 0.8, 'bagging_freq': 10, 'boosting': 'rf'}
+0.22183000000000003
 
-
+The minimum is attained in round 391
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 164
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 128
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1475
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 114
+Finished loading model, total used 2000 iterations
+{'num_thread': 64, 'num_leaves': 1024, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_
+rate': 0.05, 'feature_fraction': 0.8, 'bagging_fraction': 0.8, 'bagging_freq': 10, 'boosting': 'rf'}
+0.21993999999999997

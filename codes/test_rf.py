@@ -33,6 +33,7 @@ bagging_fraction = 0.8
 bagging_freq = 20
 boosting_mode = 'rf'
 max_depth = 32
+extra_trees = True
 
 
 for max_depth in tqdm([32]):
@@ -45,7 +46,8 @@ for max_depth in tqdm([32]):
                      'feature_fraction': feature_fraction,
                      'bagging_fraction': bagging_fraction,
                      'bagging_freq': bagging_freq,
-                     'boosting': boosting_mode
+                     'boosting': boosting_mode,
+                     'extra_trees': extra_trees
                      }
 
     model_fitter = LGBFitter(label='label')
