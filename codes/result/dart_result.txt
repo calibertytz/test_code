@@ -11,3 +11,8 @@ ate': 0.07, 'feature_fraction': 0.8, 'bagging_fraction': 0.8, 'bagging_freq': No
 {'num_thread': 64, 'num_leaves': 128, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_r
 ate': 0.07, 'feature_fraction': 0.4, 'bagging_fraction': 0.8, 'bagging_freq': 10, 'boosting': 'dart'}
 0.20571
+
+bagging_rate
+
+
+# droprate

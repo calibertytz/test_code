@@ -25,17 +25,17 @@ df_train = pd.read_csv(train_path)
 cpu_count = 8
 
 
-num_leaves = 32
+#num_leaves = 1024
 num_round = 2000
-learning_rate = 1e-3
+learning_rate = 2e-2
 feature_fraction = 0.8
 bagging_fraction = 0.8
-bagging_freq = 10
+bagging_freq = 20
 boosting_mode = 'rf'
-max_depth = 8
+max_depth = 32
 
 
-for max_depth in tqdm([6, 7, 8, 9, 10]):
+for max_depth in tqdm([32]):
     common_params = {'num_thread': 64,
                      'max_depth': max_depth,
                      'metric': 'binary_error',

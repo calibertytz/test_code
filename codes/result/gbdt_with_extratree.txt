@@ -5,3 +5,7 @@ te': 0.03, 'feature_fraction': 0.8, 'bagging_fraction': 0.8, 'bagging_freq': 10,
 {'num_thread': 64, 'num_leaves': 32, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_ra
 te': 0.03, 'feature_fraction': 0.99, 'bagging_fraction': 0.8, 'bagging_freq': 10, 'extra_trees': True}
 0.20903999999999998
+
+{'num_thread': 64, 'num_leaves': 32, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_ra
+te': 0.03, 'feature_fraction': 0.99, 'bagging_fraction': 0.9, 'bagging_freq': 10, 'extra_trees': True}
+0.20846
