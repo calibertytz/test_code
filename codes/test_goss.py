@@ -31,6 +31,7 @@ learning_rate = 1e-2
 feature_fraction = 0.8
 bagging_fraction = 0.8
 bagging_freq = None
+boosting_mode = 'goss'
 
 
 for num_leaves in tqdm([16, 32, 64, 96, 128, 164, 192]):
@@ -43,6 +44,7 @@ for num_leaves in tqdm([16, 32, 64, 96, 128, 164, 192]):
                      'feature_fraction': feature_fraction,
                      'bagging_fraction': bagging_fraction,
                      'bagging_freq': bagging_freq,
+                     'boosting_mode': boosting_mode
                      }
 
     model_fitter = LGBFitter(label='label')
