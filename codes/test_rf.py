@@ -30,7 +30,7 @@ num_round = 2000
 learning_rate = 2e-2
 feature_fraction = 0.8
 bagging_fraction = 0.8
-bagging_freq = 20
+bagging_freq = 100
 boosting_mode = 'rf'
 extra_trees = True
 
