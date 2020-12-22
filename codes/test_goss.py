@@ -44,7 +44,7 @@ for num_leaves in tqdm([16, 32, 64, 96, 128, 164, 192]):
                      'feature_fraction': feature_fraction,
                      'bagging_fraction': bagging_fraction,
                      'bagging_freq': bagging_freq,
-                     'boosting_mode': boosting_mode
+                     'boosting': boosting_mode
                      }
 
     model_fitter = LGBFitter(label='label')
