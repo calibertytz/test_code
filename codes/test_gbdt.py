@@ -53,7 +53,7 @@ for num_leaves in tqdm([16, 32, 64, 96, 128, 164, 192]):
 @dataclass
 class LGBOpt:
     num_threads: any = hp.choice('num_threads', [64])
-    num_leaves: any = hp.choice('num_leaves', [133, 134, 135, 137, 138, 139])
+    num_leaves: any = hp.choice('num_leaves', [134, 135, 136, 137, 138])
     metric: any = hp.choice('metric', ['binary_error'])
     num_round: any = hp.choice('num_rounds', [2000])
     objective: any = hp.choice('objective', ['binary'])
@@ -61,16 +61,12 @@ class LGBOpt:
     feature_fraction: any = hp.uniform('feature_fraction', 0.65, 0.75)
     bagging_fraction: any = hp.uniform('bagging_fraction', 0.75, 0.85)
     boosting: any = hp.choice('boosting', ['gbdt'])
-    bagging_freq: any = hp.choice('bagging_freq', [5])
+    bagging_freq: any = hp.choice('bagging_freq', [10])
     lambda_l1: any = hp.uniform('lambda_l1', 0, 10)
     lambda_l2: any = hp.uniform('lambda_l2', 0, 10)
     min_gain_to_split: any = hp.uniform('min_gain_to_split', 0, 1)
     min_data_in_bin = hp.choice('min_data_in_bin', [3, 5, 10, 15, 20, 50])
 
-    @staticmethod
-    def get_common_params():
-        return {'num_thread': 4, 'num_leaves': 12, 'metric': 'binary', 'objective': 'binary',
-                'num_round': 1000, 'learning_rate': 0.01, 'feature_fraction': 0.8, 'bagging_fraction': 0.8}
 
 
 
