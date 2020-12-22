@@ -1,0 +1,7 @@
+{'num_thread': 64, 'num_leaves': 96, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_ra
+te': 0.01, 'feature_fraction': 0.8, 'bagging_fraction': 0.8, 'bagging_freq': None, 'boosting': 'goss'}
+0.20583
+
+{'num_thread': 64, 'num_leaves': 80, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_ra
+te': 0.01, 'feature_fraction': 0.8, 'bagging_fraction': 0.8, 'bagging_freq': None, 'boosting': 'goss'}
+0.20563000000000003

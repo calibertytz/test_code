@@ -27,17 +27,17 @@ cpu_count = 8
 
 num_leaves = 32
 num_round = 2000
-learning_rate = 1e-2
+learning_rate = 1e-3
 feature_fraction = 0.8
 bagging_fraction = 0.8
-bagging_freq = 5
+bagging_freq = 10
 boosting_mode = 'rf'
+max_depth = 8
 
 
-
-for num_leaves in tqdm([16, 32, 64, 96, 128, 164, 192]):
+for max_depth in tqdm([6, 7, 8, 9, 10]):
     common_params = {'num_thread': 64,
-                     'num_leaves': num_leaves,
+                     'max_depth': max_depth,
                      'metric': 'binary_error',
                      'objective': 'binary',
                      'num_round': num_round,

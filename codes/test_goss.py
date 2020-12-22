@@ -25,16 +25,16 @@ df_train = pd.read_csv(train_path)
 cpu_count = 8
 
 
-num_leaves = 32
+num_leaves = 80
 num_round = 2000
 learning_rate = 1e-2
 feature_fraction = 0.8
 bagging_fraction = 0.8
-bagging_freq = None
+bagging_freq = 10
 boosting_mode = 'goss'
 
 
-for num_leaves in tqdm([16, 32, 64, 96, 128, 164, 192]):
+for feature_fraction in tqdm([0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99]):
     common_params = {'num_thread': 64,
                      'num_leaves': num_leaves,
                      'metric': 'binary_error',

@@ -1,0 +1,17 @@
+{'num_thread': 64, 'num_leaves': 128, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_r
+ate': 0.01, 'feature_fraction': 0.8, 'bagging_fraction': 0.8, 'bagging_freq': None, 'boosting_mode': 'rf'}
+0.20487000000000002
+
+{'num_thread': 64, 'num_leaves': 136, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_r
+ate': 0.01, 'feature_fraction': 0.8, 'bagging_fraction': 0.8, 'bagging_freq': None}
+0.20473
+
+{'num_thread': 64, 'num_leaves': 136, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_r
+ate': 0.01, 'feature_fraction': 0.7, 'bagging_fraction': 0.8, 'bagging_freq': None}
+0.20460000000000003
+
+bagging_freq need to be larger
+
+{'num_thread': 64, 'num_leaves': 136, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_r
+ate': 0.01, 'feature_fraction': 0.7, 'bagging_fraction': 0.8, 'bagging_freq': 5}
+0.20398000000000005
