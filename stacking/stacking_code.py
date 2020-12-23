@@ -75,7 +75,7 @@ x_train_filled = x_train_filled.dropna(axis=1)
 
 # tsne
 
-tsne = TSNE(n_components=5)
+tsne = TSNE(n_components=5, n_jobs=-1)
 tsne.fit_transform(x_train_filled)
 df_tsne_embedding = pd.DataFrame(tsne.embedding_)
 
