@@ -103,9 +103,9 @@ x_test_filled = x_test_filled.dropna(axis=1)
 '''
 # tsne
 stacked_data = pd.concat([df_train, df_test])
-stacked_data.fillna(stacked_data.median(), inplace=True)
-stacked_data.drop(columns=['label'], inplace=True)
-stacked_data.dropna(axis=1)
+stacked_data = stacked_data.fillna(stacked_data.median())
+stacked_data = stacked_data.drop(columns=['label'])
+stacked_data = stacked_data.dropna(axis=1)
 
 
 tsne = TSNE(n_components=3, n_jobs=-1)
