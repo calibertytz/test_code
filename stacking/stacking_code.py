@@ -5,18 +5,15 @@ import numpy as np
 from sklearn.manifold import TSNE
 from sklearn.cluster import KMeans
 
-
-
 # load data
 train_path = '../toy_data/train_onehot.csv'
 test_path = '../toy_data/test_onehot.csv'
 df_test = pd.read_csv(test_path)
 df_train = pd.read_csv(train_path)
 
-x_train, y_train = df_train.drop(columns=['label']), df_train['label']
-x_test, y_test = df_test.drop(columns=['label']), df_test['label']
+x_train, y_train = df_train.drop(columns=['label']).values, df_train['label'].values
+x_test, y_test = df_test.drop(columns=['label']).values, df_test['label'].values
 
-train_data = lgb.Dataset(data=x_train, label=y_train)
 num_round = 20
 
 #0.20397999999999997
@@ -34,23 +31,32 @@ goss_param = {'num_thread': 64, 'num_leaves': 80, 'metric': 'binary_error', 'obj
 dart_param = {'num_thread': 64, 'num_leaves': 128, 'metric': 'binary_error', 'objective': 'binary',
               'learning_rate': 0.07, 'feature_fraction': 0.4, 'bagging_fraction': 0.9, 'bagging_freq': 10, 'boosting': 'dart'}
 
+kfold = KFold(n_splits=5)
+out_list = []
 
-bst_gbdt = lgb.train(gbdt_param, train_data, num_round)
-bst_goss = lgb.train(goss_param, train_data, num_round)
-bst_dart = lgb.train(dart_param, train_data, num_round)
+for train_index, test_index in kfold.split(x_train):
 
-gbdt_out = bst_gbdt.predict(x_test)
-goss_out = bst_goss.predict(x_test)
-dart_out = bst_goss.predict(x_test)
+    X_train_, X_test_ = x_train[train_index], x_train[test_index]
+    y_train_, y_test_ = y_train[train_index], y_train[test_index]
+    train_data = lgb.Dataset(data=X_train_, label=y_train_)
 
-out = pd.DataFrame()
-out['gbdt'] = gbdt_out
-out['goss'] = goss_out
-out['dart'] = dart_out
-out['label'] = y_test
+    bst_gbdt = lgb.train(gbdt_param, train_data, num_round)
+    bst_goss = lgb.train(goss_param, train_data, num_round)
+    bst_dart = lgb.train(dart_param, train_data, num_round)
 
-#out.to_csv('lgb_out.csv', index=False)
+    gbdt_out = bst_gbdt.predict(x_test)
+    goss_out = bst_goss.predict(x_test)
+    dart_out = bst_goss.predict(x_test)
 
+    out = pd.DataFrame()
+    out['gbdt'] = gbdt_out
+    out['goss'] = goss_out
+    out['dart'] = dart_out
+    out['label'] = y_test
+
+    out_list.append(out)
+
+out_ = pd.concat(out_list)
 
 # our data
 '''
@@ -64,21 +70,14 @@ compute max, min, std, mean
 df_train_filled = df_train.fillna(df_train.median())
 x_train_filled = df_train_filled.drop(columns=['label'])
 
-
-# We print x
-print('Number of NaN values in our DataFrame:', x)
-
-tsne = TSNE(n_components=20)
+tsne = TSNE(n_components=3)
 tsne.fit_transform(x_train_filled)
 df_tsne_embedding = pd.DataFrame(tsne.embedding_)
-knn_out = KMeans(n_clusters=5, random_state=9).fit_predict(df_tsne_embedding)
 
-print(out.shape, df_tsne_embedding.shape, knn_out.shape)
-
-#out_1 = pd.concat([out, df_tsne_embedding], axis=1)
-
+print(out_.shape, df_tsne_embedding.shape)
+'''
 out_1 = pd.concat([out, df_tsne_embedding, knn_out], axis=1)
-
+'''
 #knn = KNeighborsClassifier()
 
 
