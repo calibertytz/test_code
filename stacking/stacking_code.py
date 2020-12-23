@@ -19,7 +19,7 @@ test_data = lgb.Dataset(data=x_test)
 num_round = 2000
 
 #0.20397999999999997
-gbdt_param = {'bagging_fraction': 0.7744376536407631, 'bagging_freq': 0, 'boosting': 0,
+gbdt_param = {'bagging_fraction': 0.7744376536407631, 'bagging_freq': 10, 'boosting': 'gbdt',
               'feature_fraction': 0.6527670858085077, 'lambda_l1': 0.012029176681726539,
               'lambda_l2': 4.903602405927458, 'learning_rate': 0.010670743157696252,
               'metric': 'binary_error','min_gain_to_split': 0.008743388851820424,
