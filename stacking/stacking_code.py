@@ -63,6 +63,12 @@ compute max, min, std, mean
 df_train_filled = df_train.fillna(df_train.median())
 x_train_filled = df_train_filled.drop(columns=['label'])
 
+# We count the number of NaN values
+x = x_train_filled.isnull().sum().sum()
+
+# We print x
+print('Number of NaN values in our DataFrame:', x)
+
 tsne = TSNE(n_components=20)
 tsne.fit_transform(x_train_filled)
 df_tsne_embedding = pd.DataFrame(tsne.embedding_)
