@@ -12,6 +12,7 @@ train_path = '../toy_data/train_onehot.csv'
 test_path = '../toy_data/test_onehot.csv'
 df_test = pd.read_csv(test_path)
 df_train = pd.read_csv(train_path)
+
 x_train, y_train = df_train.drop(columns=['label']), df_train['label']
 x_test, y_test = df_test.drop(columns=['label']), df_test['label']
 
@@ -63,8 +64,6 @@ compute max, min, std, mean
 df_train_filled = df_train.fillna(df_train.median())
 x_train_filled = df_train_filled.drop(columns=['label'])
 
-# We count the number of NaN values
-x = x_train_filled.isnull().sum().sum()
 
 # We print x
 print('Number of NaN values in our DataFrame:', x)
