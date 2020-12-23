@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.model_selection import KFold
 import numpy as np
 from sklearn.manifold import TSNE
-from sklearn.cluster import KMeans
+from sklearn.neighbors import NearestNeighbors
 
 # load data
 train_path = '../toy_data/train_onehot.csv'
@@ -14,7 +14,7 @@ df_train = pd.read_csv(train_path)
 x_train, y_train = df_train.drop(columns=['label']).values, df_train['label'].values
 x_test, y_test = df_test.drop(columns=['label']).values, df_test['label'].values
 
-num_round = 20
+num_round = 2000
 
 #0.20397999999999997
 gbdt_param = {'bagging_fraction': 0.7744376536407631, 'bagging_freq': 10, 'boosting': 'gbdt',
@@ -58,6 +58,8 @@ for train_index, test_index in kfold.split(x_train):
 
 out_ = pd.concat(out_list)
 
+out_.to_csv('out_.csv', index=False)
+
 # our data
 '''
 gbdt, goss, dart output
@@ -71,14 +73,28 @@ df_train_filled = df_train.fillna(df_train.median())
 x_train_filled = df_train_filled.drop(columns=['label'])
 x_train_filled = x_train_filled.dropna(axis=1)
 
-tsne = TSNE(n_components=3)
+# tsne
+
+tsne = TSNE(n_components=5)
 tsne.fit_transform(x_train_filled)
 df_tsne_embedding = pd.DataFrame(tsne.embedding_)
 
-print(out_.shape, df_tsne_embedding.shape)
-'''
-out_1 = pd.concat([out, df_tsne_embedding, knn_out], axis=1)
-'''
-#knn = KNeighborsClassifier()
+# knn
+neigh = NearestNeighbors(n_neighbors=5)
+neigh.fit(df_tsne_embedding.values)
+knn_index = neigh.kneighbors(df_tsne_embedding.values, 5, return_distance=False)
+knn_result = []
+
+for index in knn_index:
+    temp = df_tsne_embedding.iloc[index, :].mean().values
+    knn_result.append(temp)
+df_knn_result = pd.DataFrame(np.array(knn_result))
+
+out = pd.concat([out_, df_tsne_embedding, df_knn_result], axis=1)
+out.to_csv('out.csv', index=False)
+
+
+
+
 
 
