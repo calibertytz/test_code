@@ -79,6 +79,8 @@ tsne = TSNE(n_components=5)
 tsne.fit_transform(x_train_filled)
 df_tsne_embedding = pd.DataFrame(tsne.embedding_)
 
+df_tsne_embedding.to_csv('tsne_result.csv', index=False)
+
 # knn
 neigh = NearestNeighbors(n_neighbors=5)
 neigh.fit(df_tsne_embedding.values)
@@ -90,7 +92,7 @@ for index in knn_index:
     knn_result.append(temp)
 df_knn_result = pd.DataFrame(np.array(knn_result))
 
-out = pd.concat([out_, df_tsne_embedding, df_knn_result], axis=1)
+out = pd.concat([out_, df_tsne_embedding, df_knn_result], axis=1, ignore_index=True)
 out.to_csv('out.csv', index=False)
 
 
