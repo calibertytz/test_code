@@ -52,7 +52,7 @@ for train_index, test_index in kfold.split(x_train):
     out['gbdt'] = gbdt_out
     out['goss'] = goss_out
     out['dart'] = dart_out
-    out['label'] = y_test
+    out['label'] = y_test_
 
     out_list.append(out)
 
@@ -69,6 +69,7 @@ compute max, min, std, mean
 
 df_train_filled = df_train.fillna(df_train.median())
 x_train_filled = df_train_filled.drop(columns=['label'])
+x_train_filled = x_train_filled.dropna(axis=1)
 
 tsne = TSNE(n_components=3)
 tsne.fit_transform(x_train_filled)
