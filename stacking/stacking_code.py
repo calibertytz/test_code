@@ -14,6 +14,7 @@ df_train = pd.read_csv(train_path)
 x_train, y_train = df_train.drop(columns=['label']).values, df_train['label'].values
 x_test, y_test = df_test.drop(columns=['label']).values, df_test['label'].values
 
+'''
 num_round = 2000
 
 #0.20397999999999997
@@ -59,6 +60,9 @@ for train_index, test_index in kfold.split(x_train):
 out_ = pd.concat(out_list)
 
 out_.to_csv('out_.csv', index=False)
+'''
+
+out_ = pd.read_csv('out_.csv')
 
 # our data
 '''
@@ -75,7 +79,7 @@ x_train_filled = x_train_filled.dropna(axis=1)
 
 # tsne
 
-tsne = TSNE(n_components=5, n_jobs=-1)
+tsne = TSNE(n_components=3, n_jobs=-1)
 tsne.fit_transform(x_train_filled)
 df_tsne_embedding = pd.DataFrame(tsne.embedding_)
 
@@ -93,6 +97,13 @@ for index in knn_index:
 df_knn_result = pd.DataFrame(np.array(knn_result))
 
 out = pd.concat([out_, df_tsne_embedding, df_knn_result], axis=1, ignore_index=True)
+
+# mean min max std
+out['std'] = out.std(axis=1)
+out['mean'] = out.mean(axis=1)
+out['min'] = out.min(axis=1)
+out['max'] = out.max(axis=1)
+
 out.to_csv('out.csv', index=False)
 
 
