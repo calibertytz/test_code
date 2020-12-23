@@ -84,6 +84,7 @@ tsne.fit_transform(x_train_filled)
 df_tsne_embedding = pd.DataFrame(tsne.embedding_)
 
 df_tsne_embedding.to_csv('tsne_result.csv', index=False)
+print('tsne done!')
 
 # knn
 neigh = NearestNeighbors(n_neighbors=5)
