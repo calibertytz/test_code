@@ -14,7 +14,6 @@ x_test, y_test = df_test.drop(columns=['label']), df_test['label']
 
 
 train_data = lgb.Dataset(data=x_train, label=y_train)
-test_data = lgb.Dataset(data=x_test)
 
 num_round = 2000
 
@@ -37,9 +36,9 @@ bst_gbdt = lgb.train(gbdt_param, train_data, num_round)
 bst_goss = lgb.train(goss_param, train_data, num_round)
 bst_dart = lgb.train(dart_param, train_data, num_round)
 
-gbdt_out = bst_gbdt.predict(test_data).values
-goss_out = bst_goss.predict(test_data).values
-dart_out = bst_goss.predict(test_data).values
+gbdt_out = bst_gbdt.predict(x_test).values
+goss_out = bst_goss.predict(x_test).values
+dart_out = bst_goss.predict(x_test).values
 
 out = pd.DataFrame()
 out['gbdt'] = gbdt_out
