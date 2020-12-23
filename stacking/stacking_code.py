@@ -4,6 +4,7 @@ from sklearn.model_selection import KFold
 import numpy as np
 from sklearn.manifold import TSNE
 from sklearn.neighbors import NearestNeighbors
+from tqdm import tqdm
 
 # load data
 train_path = '../toy_data/train_onehot.csv'
@@ -14,7 +15,7 @@ df_train = pd.read_csv(train_path)
 x_train, y_train = df_train.drop(columns=['label']).values, df_train['label'].values
 x_test, y_test = df_test.drop(columns=['label']).values, df_test['label'].values
 
-
+'''
 num_round = 2000
 
 #0.20397999999999997
@@ -35,7 +36,7 @@ dart_param = {'num_thread': 64, 'num_leaves': 128, 'metric': 'binary_error', 'ob
 kfold = KFold(n_splits=5)
 out_list = []
 test_out_list = []
-for train_index, test_index in kfold.split(x_train):
+for train_index, test_index in tqdm(kfold.split(x_train)):
 
     X_train_, X_test_ = x_train[train_index], x_train[test_index]
     y_train_, y_test_ = y_train[train_index], y_train[test_index]
@@ -77,6 +78,11 @@ out_.to_csv('out_.csv', index=False)
 out_test.to_csv('out_test.csv', index=False)
 
 print('model done!')
+'''
+
+out_ = pd.read_csv('out_.csv')
+out_test = pd.read_csv('out_test.csv')
+
 
 # our data
 '''
@@ -86,7 +92,7 @@ compute max, min, std, mean
 '''
 
 #df_train_original = pd.read_csv('../toy_data/train_n.csv')
-
+'''
 df_train_filled = df_train.fillna(df_train.median())
 x_train_filled = df_train_filled.drop(columns=['label'])
 x_train_filled = x_train_filled.dropna(axis=1)
@@ -94,16 +100,19 @@ x_train_filled = x_train_filled.dropna(axis=1)
 df_test_filled = df_test.fillna(df_test.median())
 x_test_filled = df_test_filled.drop(columns=['label'])
 x_test_filled = x_test_filled.dropna(axis=1)
-
+'''
 # tsne
+stacked_data = pd.concat([df_train, df_test])
+stacked_data.fillna(stacked_data.median(), inplace=True)
+stacked_data.drop(columns=['label'], inplace=True)
+stacked_data.dropna(axis=1)
 
-tsne_train = TSNE(n_components=3, n_jobs=-1)
-tsne_train.fit(x_train_filled)
-df_tsne_train = pd.DataFrame(tsne_train.embedding_)
 
-tsne_test = TSNE(n_components=3, n_jobs=-1)
-tsne_test.fit(x_test_filled)
-df_tsne_test = pd.DataFrame(tsne_test.embedding_)
+tsne = TSNE(n_components=3, n_jobs=-1)
+tsne.fit(stacked_data)
+df_embedding = pd.DataFrame(tsne.embedding_)
+df_tsne_train = df_embedding.iloc[:100000, :]
+df_tsne_test = df_embedding.iloc[100000:, :]
 
 df_tsne_train.to_csv('tsne_result_train.csv', index=False)
 df_tsne_test.to_csv('tsne_result_test.csv', index=False)
@@ -118,12 +127,12 @@ knn_index_train = neigh.kneighbors(df_tsne_train.values, 5, return_distance=Fals
 knn_result_train = []
 
 for index in knn_index_train:
-    temp = df_tsne_train.iloc[index, :].mean().values
+    temp = df_tsne_train.iloc[index, :].mean(axis=1).values
     knn_result_train.append(temp)
 df_knn_result_train = pd.DataFrame(np.array(knn_result_train))
 
+out_train_ = pd.concat([df_tsne_train, df_knn_result_train], axis=1, ignore_index=True)
 out_train = pd.concat([out_, df_tsne_train, df_knn_result_train], axis=1, ignore_index=True)
-
 # test
 neigh = NearestNeighbors(n_neighbors=5)
 neigh.fit(df_tsne_test.values)
@@ -131,24 +140,26 @@ knn_index_test = neigh.kneighbors(df_tsne_test.values, 5, return_distance=False)
 knn_result_test = []
 
 for index in knn_index_test:
-    temp = df_tsne_test.iloc[index, :].mean().values
+    temp = df_tsne_test.iloc[index, :].mean(axis=1).values
     knn_result_test.append(temp)
 df_knn_result_test = pd.DataFrame(np.array(knn_result_test))
 
+out_test_ = pd.concat([df_tsne_test, df_knn_result_test], axis=1, ignore_index=True)
 out_test = pd.concat([out_test, df_tsne_test, df_knn_result_test], axis=1, ignore_index=True)
 
 # mean min max std
-out_train['std'] = out_train.std(axis=1)
-out_train['mean'] = out_train.mean(axis=1)
-out_train['min'] = out_train.min(axis=1)
-out_train['max'] = out_train.max(axis=1)
+
+out_train['std'] = out_train_.std(axis=1)
+out_train['mean'] = out_train_.mean(axis=1)
+out_train['min'] = out_train_.min(axis=1)
+out_train['max'] = out_train_.max(axis=1)
 
 out_train.to_csv('out_train.csv', index=False)
 
-out_test['std'] = out_test.std(axis=1)
-out_test['mean'] = out_test.mean(axis=1)
-out_test['min'] = out_test.min(axis=1)
-out_test['max'] = out_test.max(axis=1)
+out_test['std'] = out_test_.std(axis=1)
+out_test['mean'] = out_test_.mean(axis=1)
+out_test['min'] = out_test_.min(axis=1)
+out_test['max'] = out_test_.max(axis=1)
 
 out_test.to_csv('out_test.csv', index=False)
 
