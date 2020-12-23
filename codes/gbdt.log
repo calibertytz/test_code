@@ -1,0 +1,111 @@
+nohup: ignoring input
+/opt/conda/lib/python3.7/site-packages/open_competition/tabular/model_fitter.py:416: RuntimeWarning: invalid value encountered in add
+  test_pred += self.clf.predict(dtest, num_iteration=self.best_round)
+The minimum is attained in round 1910
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1909
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1941
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1339
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1656
+Finished loading model, total used 2000 iterations
+{'num_thread': 64, 'num_leaves': 136, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_rate': 0.01, 'feature_fraction': 0.3, 'bagging_fraction': 0.8, 'bagging_freq': None}
+0.20511
+The minimum is attained in round 1837
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1665
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1575
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 939
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 920
+Finished loading model, total used 2000 iterations
+{'num_thread': 64, 'num_leaves': 136, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_rate': 0.01, 'feature_fraction': 0.4, 'bagging_fraction': 0.8, 'bagging_freq': None}
+0.20505000000000004
+The minimum is attained in round 1618
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1253
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1972
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1978
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 912
+Finished loading model, total used 2000 iterations
+{'num_thread': 64, 'num_leaves': 136, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_rate': 0.01, 'feature_fraction': 0.5, 'bagging_fraction': 0.8, 'bagging_freq': None}
+0.20464
+The minimum is attained in round 2001
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1859
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1551
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 932
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1367
+Finished loading model, total used 2000 iterations
+{'num_thread': 64, 'num_leaves': 136, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_rate': 0.01, 'feature_fraction': 0.6, 'bagging_fraction': 0.8, 'bagging_freq': None}
+0.20478999999999997
+The minimum is attained in round 1975
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1937
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1196
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1570
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1976
+Finished loading model, total used 2000 iterations
+{'num_thread': 64, 'num_leaves': 136, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_rate': 0.01, 'feature_fraction': 0.7, 'bagging_fraction': 0.8, 'bagging_freq': None}
+0.20460000000000003
+The minimum is attained in round 1996
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1939
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1497
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1434
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1260
+Finished loading model, total used 2000 iterations
+{'num_thread': 64, 'num_leaves': 136, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_rate': 0.01, 'feature_fraction': 0.8, 'bagging_fraction': 0.8, 'bagging_freq': None}
+0.20473
+The minimum is attained in round 993
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1152
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1660
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1305
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1727
+Finished loading model, total used 2000 iterations
+{'num_thread': 64, 'num_leaves': 136, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_rate': 0.01, 'feature_fraction': 0.9, 'bagging_fraction': 0.8, 'bagging_freq': None}
+0.20534
+The minimum is attained in round 1540
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1117
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1266
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1021
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1597
+Finished loading model, total used 2000 iterations
+{'num_thread': 64, 'num_leaves': 136, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_rate': 0.01, 'feature_fraction': 0.95, 'bagging_fraction': 0.8, 'bagging_freq': None}
+0.20537
+The minimum is attained in round 1226
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1253
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1647
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1203
+Finished loading model, total used 2000 iterations
+The minimum is attained in round 1773
+Finished loading model, total used 2000 iterations
+{'num_thread': 64, 'num_leaves': 136, 'metric': 'binary_error', 'objective': 'binary', 'num_round': 2000, 'learning_rate': 0.01, 'feature_fraction': 0.99, 'bagging_fraction': 0.8, 'bagging_freq': None}
+0.20579
