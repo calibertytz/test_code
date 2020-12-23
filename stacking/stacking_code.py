@@ -44,9 +44,9 @@ for train_index, test_index in kfold.split(x_train):
     bst_goss = lgb.train(goss_param, train_data, num_round)
     bst_dart = lgb.train(dart_param, train_data, num_round)
 
-    gbdt_out = bst_gbdt.predict(x_test)
-    goss_out = bst_goss.predict(x_test)
-    dart_out = bst_goss.predict(x_test)
+    gbdt_out = bst_gbdt.predict(X_test_)
+    goss_out = bst_goss.predict(X_test_)
+    dart_out = bst_goss.predict(X_test_)
 
     out = pd.DataFrame()
     out['gbdt'] = gbdt_out
