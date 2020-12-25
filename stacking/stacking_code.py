@@ -15,6 +15,7 @@ df_train = pd.read_csv(train_path)
 x_train, y_train = df_train.drop(columns=['label']).values, df_train['label'].values
 x_test, y_test = df_test.drop(columns=['label']).values, df_test['label'].values
 
+'''
 num_round = 2000
 
 #0.20397999999999997
@@ -77,9 +78,10 @@ out_.to_csv('out_.csv', index=False)
 out_test.to_csv('out_test.csv', index=False)
 
 print('model done!')
+'''
 
-#out_ = pd.read_csv('out_.csv')
-#out_test = pd.read_csv('out_test.csv')
+out_ = pd.read_csv('out_.csv')
+out_test = pd.read_csv('out_test.csv')
 
 
 # our data
